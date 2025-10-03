@@ -1,0 +1,27 @@
+body{
+    text-align: center;
+font-family: sans-serif;
+background-color: #f0f0f0;
+}
+#game-board{
+    display: flex;
+    justify-content: center;
+    gap:2rem;
+    margin-top: 30px;
+}
+.mole {
+width: 80px;
+height: 80px;
+background-color: grey;
+border: none;
+border-radius: 50%;
+transition: 0.3s;
+cursor: pointer;
+}
+.mole:hover {
+background-color: #555;
+}
+
+.active {
+background-color: green;
+}

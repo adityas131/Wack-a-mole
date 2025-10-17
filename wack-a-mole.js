@@ -8,6 +8,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const winMessage = document.getElementById('win_message');
   const restartBtn = document.getElementById('restart');
 
+  // Function to activate a random mole
   function randomMole() {
     moles.forEach(mole => mole.classList.remove('active'));
     const randomIndex = Math.floor(Math.random() * moles.length);
@@ -15,6 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
     activeMole.classList.add('active');
   }
 
+  // When a mole is clicked
   moles.forEach(mole => {
     mole.addEventListener('click', () => {
       if (mole.classList.contains('active')) {
@@ -23,14 +25,21 @@ window.addEventListener("DOMContentLoaded", () => {
         mole.classList.remove('active');
         randomMole();
 
-        if (score >= 10) {
+        // 🎯 Win at 5 points
+        if (score >= 5) {
           winMessage.textContent = "🎉 You win!";
           clearInterval(gameInterval);
+
+          // ⏳ Reset game automatically after 10 seconds
+          setTimeout(() => {
+            resetGame();
+          }, 10000); // 10000 ms = 10 seconds
         }
       }
     });
   });
 
+  // Start game logic
   function startGame() {
     score = 0;
     scoreDisplay.textContent = score;
@@ -39,10 +48,21 @@ window.addEventListener("DOMContentLoaded", () => {
     gameInterval = setInterval(randomMole, 1000);
   }
 
+  // Reset game after winning
+  function resetGame() {
+    moles.forEach(mole => mole.classList.remove('active'));
+    score = 0;
+    scoreDisplay.textContent = score;
+    winMessage.textContent = "";
+    startGame();
+  }
+
+  // Restart button manually resets the game anytime
   restartBtn.addEventListener('click', () => {
     clearInterval(gameInterval);
-    startGame();
+    resetGame();
   });
 
+  // Start the game on page load
   startGame();
 });
